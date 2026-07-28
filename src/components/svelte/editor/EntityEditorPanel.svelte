@@ -4,6 +4,7 @@
   import EntityEditorMessage from "./EntityEditorMessage.svelte";
   import EntityEditorSubmitButton from "./EntityEditorSubmitButton.svelte";
   import EntityHistoryPanel from "./EntityHistoryPanel.svelte";
+  import ProposalLicenseNote from "./ProposalLicenseNote.svelte";
   import {
     canShowWithdrawProposal,
     proposalStatusMessage,
@@ -114,6 +115,7 @@
         disabled={submitDisabled}
         onclick={onsubmit}
       />
+      <ProposalLicenseNote />
     </div>
   {/if}
 

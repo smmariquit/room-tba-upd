@@ -24,6 +24,7 @@
   } from "@lib/contributor-drafts";
   import EntityEditorFormField from "@ui/editor/EntityEditorFormField.svelte";
   import EntityEditorSubmitButton from "@ui/editor/EntityEditorSubmitButton.svelte";
+  import ProposalLicenseNote from "@ui/editor/ProposalLicenseNote.svelte";
   import EntityEditorPinRow from "@ui/editor/EntityEditorPinRow.svelte";
   import EntityEditorMessage from "@ui/editor/EntityEditorMessage.svelte";
   import ImageUpload from "@ui/editor/ImageUpload.svelte";
@@ -1082,6 +1083,9 @@
     variant="primary"
     onclick={submit}
   />
+  {#if !isPublish}
+    <ProposalLicenseNote />
+  {/if}
 </section>
 
 <style>

@@ -279,7 +279,14 @@ After you think you've replaced everything, run `bun run fork:check` — it scan
 
 ## License
 
-[MIT](LICENSE). Use it, fork it, teach with it. If you deploy a fork for another campus, change the data, not just the logo. See the [fork guide](#fork-this-for-your-campus) above.
+| Layer | License |
+| --- | --- |
+| Application code | [MIT](LICENSE) |
+| Community campus map data (buildings, rooms, dorms, orgs, pins, aliases) | [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| OpenStreetMap basemap / footprints | [ODbL](https://www.openstreetmap.org/copyright) (+ [MapTiler](https://www.maptiler.com/copyright/) for tiles) |
+| AMIS/CRS, OUR, OSA imports | Not offered under an open bulk license |
+
+Use the code, fork it, teach with it. If you deploy a fork for another campus, change the data, not just the logo. See the [fork guide](#fork-this-for-your-campus) above. Student-facing summary: [FAQ — Can I reuse Room TBA data?](https://room-tba.uplb.tools/faq#data-license).
 
 ---
 

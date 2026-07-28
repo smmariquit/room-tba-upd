@@ -1,5 +1,10 @@
 <script lang="ts">
   import Info from "@lucide/svelte/icons/info";
+  import {
+    DATA_LICENSE_FAQ_PATH,
+    MAPTILER_COPYRIGHT_URL,
+    OSM_COPYRIGHT_URL,
+  } from "@constants/data-license";
   import { terrainStore } from "@lib/store.svelte";
   import "./map-chrome/map-chrome.css";
 
@@ -18,19 +23,11 @@
 >
   <!-- Required credits visible without a click (OSMF + MapTiler terms). -->
   <p class="map-attribution__credits">
-    <a
-      href="https://www.openstreetmap.org/copyright"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a href={OSM_COPYRIGHT_URL} target="_blank" rel="noopener noreferrer">
       © OpenStreetMap
     </a>
     <span aria-hidden="true">·</span>
-    <a
-      href="https://www.maptiler.com/copyright/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a href={MAPTILER_COPYRIGHT_URL} target="_blank" rel="noopener noreferrer">
       © MapTiler
     </a>
   </p>
@@ -47,18 +44,10 @@
   </button>
   {#if expanded}
     <div id="map-attribution-details" class="attrib-body">
-      <a
-        href="https://www.openstreetmap.org/copyright"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={OSM_COPYRIGHT_URL} target="_blank" rel="noopener noreferrer">
         © OpenStreetMap contributors
       </a>
-      <a
-        href="https://www.maptiler.com/copyright/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={MAPTILER_COPYRIGHT_URL} target="_blank" rel="noopener noreferrer">
         © MapTiler
       </a>
       <a
@@ -68,6 +57,7 @@
       >
         © OpenMapTiles
       </a>
+      <a href={DATA_LICENSE_FAQ_PATH}>Campus data license</a>
     </div>
   {/if}
   {#if terrainStore.enabled}
