@@ -49,7 +49,7 @@
   white-space: nowrap;
 }
 
-/* Compact status pill — matches .map-chrome-chip metrics so Map data / Menu /
+/* Compact status pill — matches .map-chrome-chip metrics so attribution / Menu /
    status read as one row of equal pills. Full detail lives in the App menu. */
 .status-bar__pill {
   display: inline-flex;
