@@ -82,7 +82,39 @@ const PREFIX_TO_BUILDING: Record<string, string> = {
   NCPAG: "National College of Public Administration and Governance",
   EDUC: "Benitez Hall",
   VH: "Vinzons Hall",
+  // Cross-tab decodes 2026-08-02: venue prefix vs CRS enlisting unit over
+  // both term exports (see room-tba-upd fork notes). Unit tells the college,
+  // the college's known building gives the pin.
+  SS: "School of Statistics", // Stat courses, 203 of 210 venues
+  B1: "College of Architecture Building 1", // Arch courses only
+  B2: "College of Architecture Building 2", // Arch courses only
+  MCB: "Broadcast Media Center Building", // Broadcast Communication
+  AVR: "Palma Hall", // PolSci audio-visual room
+  SOCIO: "Palma Hall", // Sociology dept rooms
+  UG: "Palma Hall", // Palma Hall lower-ground rooms
+  ENRIQUEZ: "Plaridel Hall", // Journalism; pass-3 may move to Media Center
+  CLASSROOM: "Albert Hall", // School of Archaeology "Classroom A/B"
+  GUSALI: "Alonso Hall", // CHE depts (DFSN/HRIM/HEED); exact wing pending
+  IDS: "Alonso Hall", // CTID interior-design studios
+  FNL: "Alonso Hall", // DFSN food and nutrition labs
+  CIDL: "Alonso Hall", // CTID
+  RM: "Plaridel Hall", // "Rm ###" venues, Journalism
+  CONFERENCE: "Palma Hall", // PolSci/Philo "Conference Room"
+  SEMINAR: "Palma Hall", // Philo "Seminar Room"
 };
+
+/** Resolve a CRS venue string to a building id via its prefix. */
+function resolveVenueBuildingId(
+  venue: string,
+  buildingIdByName: Map<string, number>,
+): number | null {
+  // "Pav 2 ..." and "PAV2 ..." both mean Palma Hall Pavilion 2.
+  const pav = venue.match(/^PAV\s*(\d)/i);
+  const prefix = pav ? `PAV${pav[1]}` : venue.split(/[\s-]/)[0].toUpperCase();
+  const buildingName = PREFIX_TO_BUILDING[prefix];
+  if (!buildingName) return null;
+  return buildingIdByName.get(buildingName) ?? null;
+}
 
 type OverpassExport = {
   elements: Array<{
@@ -169,11 +201,7 @@ async function main() {
     const roomInserts = [...venues]
       .filter((venue) => !existingRooms.has(venue))
       .map((venue) => {
-        const prefix = venue.split(/[\s-]/)[0].toUpperCase();
-        const buildingName = PREFIX_TO_BUILDING[prefix];
-        const buildingId = buildingName
-          ? (buildingIdByName.get(buildingName) ?? null)
-          : null;
+        const buildingId = resolveVenueBuildingId(venue, buildingIdByName);
         if (buildingId != null) linked += 1;
         return { roomCode: venue, buildingId };
       });
@@ -184,6 +212,24 @@ async function main() {
       `Rooms: +${roomInserts.length} (${linked} linked to a building, ` +
         `${existingRooms.size} already present)`,
     );
+
+    // 2b. Self-heal: as the gazetteer grows, link rooms that imported
+    // before their prefix was decoded.
+    const unlinkedRooms = await db
+      .select({ id: roomsTable.id, code: roomsTable.roomCode })
+      .from(roomsTable)
+      .where(isNull(roomsTable.buildingId));
+    let relinked = 0;
+    for (const room of unlinkedRooms) {
+      const buildingId = resolveVenueBuildingId(room.code, buildingIdByName);
+      if (buildingId == null) continue;
+      await db
+        .update(roomsTable)
+        .set({ buildingId })
+        .where(eq(roomsTable.id, room.id));
+      relinked += 1;
+    }
+    console.log(`Rooms relinked after gazetteer growth: +${relinked}`);
 
     // 3. Colleges (UPD degree-granting units; roster cross-checked against
     // upd.edu.ph and unit sites, 2026-08). Websites only where verified.

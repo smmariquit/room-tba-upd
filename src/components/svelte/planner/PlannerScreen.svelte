@@ -502,7 +502,7 @@
           {/if}
         </h2>
         <p class="planner-side__hint" role="note">
-          Room TBA cannot show instructor names from AMIS. Write the professor
+          Room TBA cannot show instructor names from CRS. Write the professor
           for each section here — saved to your account when signed in, never
           shared.
         </p>

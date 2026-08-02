@@ -28,10 +28,10 @@ if (appData === null) {
 const { event } = appData;
 const eventImage = getEventImage(event.slug, event.imageUrl, event.title);
 const canonicalPath = `/event/${event.slug}/`;
-const title = `${event.title} | UPLB event | Room TBA`;
+const title = `${event.title} | UP Diliman event | Room TBA`;
 const description =
   event.description ??
-  `Open ${event.title} on Room TBA for event-linked UPLB map markers and routes.`;
+  `Open ${event.title} on Room TBA for event-linked UP Diliman map markers and routes.`;
 
 const primaryLocation =
   event.locations.find((location) => location.isPrimary) ??
@@ -82,13 +82,13 @@ const structuredData = jsonLd(
   imagePath={ogCardPath({
     title: event.title,
     subtitle: `${formatCampusDateTime(event.occurrenceStartsAt)}${primaryLocation ? ` · ${primaryLocation.resolvedLabel}` : ""}`,
-    kicker: "Event at UPLB",
+    kicker: "Event at UP Diliman",
   })}
   structuredData={structuredData}
 >
   <main class="event-map-page">
     <article class="sr-only">
-      <h1>{event.title} at UPLB</h1>
+      <h1>{event.title} at UP Diliman</h1>
       <p>{description}</p>
       <p>
         Starts {formatCampusDateTime(event.occurrenceStartsAt)} (campus time).

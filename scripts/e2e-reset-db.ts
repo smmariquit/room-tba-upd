@@ -33,10 +33,10 @@ export const E2E_FIXTURES = {
     contributor: "e2e-contributor",
     disabled: "e2e-disabled",
   },
-  buildingLat: 14.1655,
-  buildingLon: 121.2412,
-  dormLat: 14.166,
-  dormLon: 121.242,
+  buildingLat: 14.6549,
+  buildingLon: 121.0672,
+  dormLat: 14.6555,
+  dormLon: 121.068,
 } as const;
 
 /** Guard the target: E2E project, and an `e2e_*` schema when one is requested. */

@@ -29,10 +29,10 @@ const { room, classCount, termLabel } = appData;
 const termPhrase = termLabel ? ` for ${termLabel}` : "";
 
 const canonicalPath = `/room/${getRoomRouteSlug(room)}/`;
-const title = `${room.code} | Room at UPLB | Room TBA`;
+const title = `${room.code} | Room at UP Diliman | Room TBA`;
 const description = room.building?.name
-  ? `Find ${room.code} at UPLB. View building context, directions, and ${classCount} listed class${classCount === 1 ? "" : "es"}${termPhrase} in ${room.building.name} on Room TBA.`
-  : `Find ${room.code} at UPLB with Room TBA. View room details and ${classCount} listed class${classCount === 1 ? "" : "es"}${termPhrase}.`;
+  ? `Find ${room.code} at UP Diliman. View building context, directions, and ${classCount} listed class${classCount === 1 ? "" : "es"}${termPhrase} in ${room.building.name} on Room TBA.`
+  : `Find ${room.code} at UP Diliman with Room TBA. View room details and ${classCount} listed class${classCount === 1 ? "" : "es"}${termPhrase}.`;
 const intro = room.building?.name
   ? `${room.code} is listed under ${room.building.name} in Room TBA. Open this page for directions and class listings${termPhrase}.`
   : `${room.code} is listed in Room TBA. Open this page to browse class listings${termPhrase}.`;
@@ -78,10 +78,10 @@ const structuredData = jsonLd(
     : null}
   ogCard={{
     title: room.code,
-    subtitle: `${room.building?.name ?? "UPLB Los Baños"} · ${classCount} class${classCount === 1 ? "" : "es"}${termLabel ? ` · ${termLabel}` : ""}`,
-    kicker: "Room at UPLB",
+    subtitle: `${room.building?.name ?? "UP Diliman"} · ${classCount} class${classCount === 1 ? "" : "es"}${termLabel ? ` · ${termLabel}` : ""}`,
+    kicker: "Room at UP Diliman",
   }}
-  heading={`${room.code} at UPLB`}
+  heading={`${room.code} at UP Diliman`}
   {intro}
   {facts}
   breadcrumbs={[

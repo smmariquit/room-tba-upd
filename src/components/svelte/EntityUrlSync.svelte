@@ -108,10 +108,10 @@
     if (queryStore.category === "room" && currentRoom.value) {
       const room = currentRoom.value;
       updateTermAwareDocumentMeta({
-        baseTitle: `${room.code} | Room at UPLB`,
+        baseTitle: `${room.code} | Room at UP Diliman`,
         baseDescription: room.building?.name
-          ? `Find ${room.code} at UPLB in ${room.building.name} with directions and listed classes.`
-          : `Find ${room.code} at UPLB with directions and listed classes.`,
+          ? `Find ${room.code} at UP Diliman in ${room.building.name} with directions and listed classes.`
+          : `Find ${room.code} at UP Diliman with directions and listed classes.`,
         canonicalPath: getRoomCanonicalPath(room),
         termLabel,
         termId,
@@ -123,8 +123,8 @@
     if (queryStore.category === "building") {
       const buildingName = queryStore.queryValue;
       updateTermAwareDocumentMeta({
-        baseTitle: `${buildingName} | Building at UPLB`,
-        baseDescription: `Find rooms in ${buildingName} at UPLB with map context and class schedules by room.`,
+        baseTitle: `${buildingName} | Building at UP Diliman`,
+        baseDescription: `Find rooms in ${buildingName} at UP Diliman with map context and class schedules by room.`,
         canonicalPath: getBuildingCanonicalPath(buildingName),
         termLabel,
         termId,
@@ -140,9 +140,9 @@
       if (!organization) return;
       const category = orgCategoryLabel(organization.category) ?? "Organization";
       updateTermAwareDocumentMeta({
-        baseTitle: `${organization.name} | ${category} at UPLB`,
+        baseTitle: `${organization.name} | ${category} at UP Diliman`,
         baseDescription: organization.description ??
-          `Find ${organization.name}, a ${category.toLowerCase()} at UPLB, on the campus map.`,
+          `Find ${organization.name}, a ${category.toLowerCase()} at UP Diliman, on the campus map.`,
         canonicalPath: getOrganizationCanonicalPath(organization),
         termLabel,
         termId,
@@ -158,9 +158,9 @@
       if (!place) return;
       const category = placeCategoryLabel(place.category) ?? "Campus place";
       updateTermAwareDocumentMeta({
-        baseTitle: `${place.name} | ${category} at UPLB`,
+        baseTitle: `${place.name} | ${category} at UP Diliman`,
         baseDescription: place.description ??
-          `Find ${place.name}, a ${category.toLowerCase()} at UPLB, on the campus map.`,
+          `Find ${place.name}, a ${category.toLowerCase()} at UP Diliman, on the campus map.`,
         canonicalPath: getPlaceCanonicalPath(place),
         termLabel,
         termId,

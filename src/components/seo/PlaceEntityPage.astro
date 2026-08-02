@@ -14,10 +14,10 @@ import type { PlaceData } from "@lib/types";
 const { place } = Astro.props as { place: PlaceData };
 const category = placeCategoryLabel(place.category) ?? "Campus place";
 const canonicalPath = getPlaceCanonicalPath(place);
-const title = `${place.name} | ${category} at UPLB | Room TBA`;
+const title = `${place.name} | ${category} at UP Diliman | Room TBA`;
 const description = place.description
-  ? `${place.name} is listed as a ${category.toLowerCase()} at UPLB. ${place.description}`
-  : `Find ${place.name}, a ${category.toLowerCase()} at UPLB, on the Room TBA campus map.`;
+  ? `${place.name} is listed as a ${category.toLowerCase()} at UP Diliman. ${place.description}`
+  : `Find ${place.name}, a ${category.toLowerCase()} at UP Diliman, on the Room TBA campus map.`;
 const facts = [
   category,
   place.hours ? `Hours: ${place.hours}` : null,
@@ -57,11 +57,11 @@ const structuredData = jsonLd(
   ogCard={{
     title: place.name,
     subtitle: place.hours
-      ? `UPLB Los Baños · ${place.hours}`
-      : "UPLB Los Baños",
-    kicker: `${category} at UPLB`,
+      ? `UP Diliman · ${place.hours}`
+      : "UP Diliman",
+    kicker: `${category} at UP Diliman`,
   }}
-  heading={`${place.name} at UPLB`}
+  heading={`${place.name} at UP Diliman`}
   intro={description}
   {facts}
   breadcrumbs={[

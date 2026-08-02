@@ -41,11 +41,11 @@ const aiDescription = route
 const factual = route ? describeRoute(from, to, route) : null;
 
 const canonicalPath = getRoutePath(from.name, to.name);
-const title = `${from.name} to ${to.name} | Walking route at UPLB | Room TBA`;
+const title = `${from.name} to ${to.name} | Walking route at UP Diliman | Room TBA`;
 const summary = route
   ? `${formatDistance(route.meters)}, about ${formatDuration(route.seconds)} walking.`
-  : `Walking route between ${from.name} and ${to.name} at UPLB.`;
-const description = `How to walk from ${from.name} to ${to.name} at UP Los Banos. ${summary}`;
+  : `Walking route between ${from.name} and ${to.name} at UP Diliman.`;
+const description = `How to walk from ${from.name} to ${to.name} at UP Diliman. ${summary}`;
 
 const structuredData = jsonLd(
   webpageSchema({ title, description, path: canonicalPath }),

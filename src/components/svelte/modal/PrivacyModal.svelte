@@ -11,8 +11,8 @@
 
   <div class="privacy-modal__scroll map-chrome-scroll">
     <p>
-      Room TBA is a free UPLB campus map and schedule finder maintained by
-      volunteers. It is not an official University of the Philippines Los Baños
+      Room TBA is a free UP Diliman campus map and schedule finder maintained by
+      volunteers. It is not an official University of the Philippines Diliman
       website.
     </p>
 

@@ -13,7 +13,7 @@ import {
 // the planner on this path; the term comes from ?term via termStore.
 const title = "Class Planner | Room TBA";
 const description =
-  "Plan your UPLB class schedule: add sections by term, spot conflicts, and export to your calendar.";
+  "Plan your UP Diliman class schedule: add sections by term, spot conflicts, and export to your calendar.";
 const structuredData = jsonLd(
   websiteSchema(),
   webpageSchema({ title, description, path: "/planner" }),
@@ -30,7 +30,7 @@ const structuredData = jsonLd(
   canonicalPath="/planner"
   imagePath={ogCardPath({
     title: "Class Planner",
-    subtitle: "Plan your UPLB class schedule by term",
+    subtitle: "Plan your UP Diliman class schedule by term",
     kicker: "Planner",
   })}
   structuredData={structuredData}

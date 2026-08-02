@@ -93,8 +93,8 @@
 
   <p class="acal-note" role="note">
     Community-maintained instructional windows per CRS term. Dates may differ
-    from the official UPLB academic calendar — verify with the Office of the
-    University Registrar.
+    from the official UP Diliman academic calendar. Verify with the Office of
+    the University Registrar.
   </p>
 
   <div class="acal-body">

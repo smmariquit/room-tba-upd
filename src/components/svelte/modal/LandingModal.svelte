@@ -177,7 +177,7 @@
           </span>
         </h2>
         <p class="hero-tagline">
-          Find rooms, explore the map, and discover campus events at UPLB.
+          Find rooms, explore the map, and discover campus events at UP Diliman.
         </p>
         <ul class="hero-pitches">
           <li>No account needed. Search and browse without signing in.</li>

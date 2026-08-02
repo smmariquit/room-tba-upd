@@ -12,13 +12,13 @@ const stopSlug = Astro.params.stop;
 const route = JEEPNEY_ROUTES.find((entry) => entry.id === routeId);
 const stopIndex = route && stopSlug ? getTransitStopIndex(route, stopSlug) : -1;
 const stop = route?.stops[stopIndex] ?? null;
-const routeName = route?.name ?? "UPLB jeepney route";
+const routeName = route?.name ?? "UP Diliman jeepney route";
 const stopName = stop?.name ?? "Jeepney stop";
 const canonicalPath = `/transit/${encodeURIComponent(routeId ?? "")}/${encodeURIComponent(stopSlug ?? "")}/`;
 const title = `${stopName} | ${routeName} | Room TBA`;
 const description = stop
   ? `${stop.description} Stop ${stopIndex + 1} of ${route!.stops.length} on the ${routeName}.`
-  : "View this UPLB jeepney stop and its route on the Room TBA campus map.";
+  : "View this UP Diliman jeepney stop and its route on the Room TBA campus map.";
 const structuredData = jsonLd(
   webpageSchema({ title, description, path: canonicalPath }),
   breadcrumbSchema([
@@ -40,7 +40,7 @@ const structuredData = jsonLd(
     subtitle: route && stop
       ? `${routeName} · Stop ${stopIndex + 1} of ${route.stops.length}`
       : routeName,
-    kicker: "UPLB jeepney stop",
+    kicker: "UP Diliman jeepney stop",
   })}
   {structuredData}
 >

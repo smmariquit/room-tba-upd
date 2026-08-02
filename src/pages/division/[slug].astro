@@ -33,8 +33,8 @@ if (appData === null) {
 const { division, roomCount } = appData;
 
 const canonicalPath = `/division/${getDivisionSlug(division)}/`;
-const title = `${division.divisionName} | Division at UPLB | Room TBA`;
-const description = `${division.divisionName} has ${roomCount} room${roomCount === 1 ? "" : "s"} listed at UPLB. Open the division view on Room TBA to browse linked rooms.`;
+const title = `${division.divisionName} | Division at UP Diliman | Room TBA`;
+const description = `${division.divisionName} has ${roomCount} room${roomCount === 1 ? "" : "s"} listed at UP Diliman. Open the division view on Room TBA to browse linked rooms.`;
 const intro = `${division.divisionName} currently has ${roomCount} room${roomCount === 1 ? "" : "s"} listed in Room TBA. Open this page to jump straight into the division result view.`;
 
 const facts = [
@@ -57,7 +57,7 @@ const structuredData = jsonLd(
     image: ogImageUrl(),
     parentOrganization: {
       "@type": "CollegeOrUniversity",
-      name: "University of the Philippines Los Banos",
+      name: "University of the Philippines Diliman",
     },
   },
 );
@@ -69,10 +69,10 @@ const structuredData = jsonLd(
   {canonicalPath}
   ogCard={{
     title: division.divisionName,
-    subtitle: `${roomCount} room${roomCount === 1 ? "" : "s"} linked · UPLB Los Baños`,
-    kicker: "Division at UPLB",
+    subtitle: `${roomCount} room${roomCount === 1 ? "" : "s"} linked · UP Diliman`,
+    kicker: "Division at UP Diliman",
   }}
-  heading={`${division.divisionName} at UPLB`}
+  heading={`${division.divisionName} at UP Diliman`}
   {intro}
   {facts}
   breadcrumbs={[

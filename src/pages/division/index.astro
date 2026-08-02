@@ -22,9 +22,9 @@ const items = divisions
     };
   });
 
-const title = "UPLB divisions | Room TBA";
+const title = "UP Diliman divisions | Room TBA";
 const description =
-  "Browse division pages on Room TBA to find UPLB rooms associated with each division.";
+  "Browse division pages on Room TBA to find UP Diliman rooms associated with each division.";
 const structuredData = jsonLd(
   webpageSchema({ title, description, path: "/division/" }),
   breadcrumbSchema([
@@ -38,7 +38,7 @@ const structuredData = jsonLd(
   title={title}
   description={description}
   canonicalPath="/division/"
-  heading="UPLB division pages"
+  heading="UP Diliman division pages"
   intro="Browse crawlable division pages for Room TBA. Each page opens the division result view and groups the rooms linked to that division."
   {items}
   structuredData={structuredData}

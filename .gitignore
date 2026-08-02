@@ -54,3 +54,5 @@ data/crs-classes-*.json
 data/upd-buildings-osm.json
 data/upd-amenities-osm.json
 data/upd-stops-osm.json
+.env*
+.vercel-admin-credentials.local

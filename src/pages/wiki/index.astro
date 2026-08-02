@@ -11,16 +11,8 @@ const articles = [
     kicker: "Student FAQ · 3 min read",
     title: "Frequently asked questions",
     blurb:
-      "Where the 3D building models come from, whether Room TBA is official UPLB, how class and room data is updated, and how to report wrong data. Short, plain-language answers for students.",
+      "Where the 3D building models come from, whether Room TBA is official UP Diliman, how class and room data is updated, and how to report wrong data. Short, plain-language answers for students.",
     sourcePath: "src/pages/faq.astro",
-  },
-  {
-    href: "/wiki/upcat-at-uplb",
-    kicker: "UPCAT at UPLB · 8 min read",
-    title: "Taking the UPCAT at UP Los Baños",
-    blurb:
-      "For examinees and the parents driving them, August 1 and 2, 2026. What the test permit does and does not tell you, the two campus jeepney routes, and how to save the campus map before mobile data gets congested.",
-    sourcePath: "src/pages/wiki/upcat-at-uplb.astro",
   },
   {
     href: "/wiki/fork-for-your-campus",
@@ -29,14 +21,6 @@ const articles = [
     blurb:
       "Room TBA is built for UPLB. Here is what you actually replace to run it for a different campus — the UPLB data and glue to rip out, the config to repoint, and the write-your-own parts (class import).",
     sourcePath: "src/pages/wiki/fork-for-your-campus.astro",
-  },
-  {
-    href: "/wiki/section-times",
-    kicker: "Class schedules · 12 min read",
-    title: "What times do section names correspond to?",
-    blurb:
-      "Exhaustive glossary: letter ladders, NSTP/HK/GI/residency, MS/PhD numbers, every AMIS type, plus oldest→newest term trends (what moved vs what only looks bigger in Room TBA).",
-    sourcePath: "src/pages/wiki/section-times.astro",
   },
 ].map((article) => {
   const { authors, lastEdited } = wikiProvenance(article.sourcePath);
@@ -53,7 +37,7 @@ const articles = [
 
 const title = "Wiki | Room TBA";
 const description =
-  "Plain-language guides to UPLB class schedules, section names, rooms, and campus systems, backed by Room TBA data.";
+  "Plain-language guides to UP Diliman class schedules, section names, rooms, and campus systems, backed by Room TBA data.";
 const structuredData = jsonLd(
   webpageSchema({ title, description, path: "/wiki" }),
   breadcrumbSchema([

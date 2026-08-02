@@ -868,9 +868,9 @@
           <div class="entity-dorm-details__links">
             {#if dorm.isUpManaged}
               <EntityExternalLink
-                href="https://uplbosa.org"
-                label="UPLB OSA website"
-                ariaLabel="Open UPLB OSA website (opens in new tab)"
+                href="https://ovcsa.upd.edu.ph/student-services/osh/"
+                label="UP Diliman housing office website"
+                ariaLabel="Open UP Diliman housing office website (opens in new tab)"
               />
             {:else if dorm.priceRange}
               <span class="price-disclaimer">

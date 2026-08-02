@@ -90,7 +90,7 @@ describe("AcademicCalendarScreen", () => {
   test("shows the community-data disclaimer", () => {
     render(AcademicCalendarScreen);
     expect(screen.getByRole("note").textContent).toContain(
-      "official UPLB academic calendar",
+      "official UP Diliman academic calendar",
     );
   });
 });
