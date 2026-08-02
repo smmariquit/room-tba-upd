@@ -53,7 +53,13 @@ const PREFIX_TO_BUILDING: Record<string, string> = {
   MMM: "Department of Mining, Metallurgical, and Materials Engineering",
   MSI: "Marine Science Institute",
   STAT: "School of Statistics",
-  SOLAIR: "Bocobo Hall",
+  // Deep-research verified 2026-08-02: SOLAIR is in Bonifacio Hall (its own
+  // site + the official campus map legend); Bocobo Hall is the UP Law Center.
+  SOLAIR: "Bonifacio Hall",
+  CDC: "UP Child Development Center", // Child Development Center, CHE
+  CHK: "UP Gymnasium (CHK Building)", // Ylanan Hall
+  // AIT = Asian Institute of Tourism, Commonwealth Ave; no OSM footprint in
+  // the campus export yet, so AIT rooms stay unlinked until one is added.
   SURP: "School of Urban and Regional Planning (SURP)",
   NCPAG: "National College of Public Administration and Governance",
   EDUC: "Benitez Hall",

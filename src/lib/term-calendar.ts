@@ -43,13 +43,40 @@ export const TERM_CALENDAR_WINDOWS: Record<
     finalsStartsOn: "2026-07-21",
     finalsEndsOn: "2026-07-25",
   },
+  // UPD CRS 120261: AY 2026-2027 1st semester, from the official OUR
+  // calendar PDF (our.upd.edu.ph/files/calendar/regular/ACAD CAL 2026-2027.pdf)
+  120261: {
+    startsOn: "2026-08-10",
+    endsOn: "2026-12-17",
+    finalsStartsOn: "2026-12-09",
+    finalsEndsOn: "2026-12-17",
+  },
+  // UPD CRS 120262: AY 2026-2027 2nd semester
+  120262: {
+    startsOn: "2027-01-15",
+    endsOn: "2027-05-29",
+    finalsStartsOn: "2027-05-21",
+    finalsEndsOn: "2027-05-29",
+  },
+  // UPD CRS 120264: Midyear 2027
+  120264: {
+    startsOn: "2027-06-17",
+    endsOn: "2027-07-26",
+    finalsStartsOn: "2027-07-23",
+    finalsEndsOn: "2027-07-26",
+  },
 };
 
 /**
  * Last day of change of matriculation per term (Asia/Manila, date-only). Until
  * this date, course offerings can still change — surfaced in the planner note.
  */
-export const CHANGE_OF_MATRICULATION_ENDS: Record<number, string> = {};
+export const CHANGE_OF_MATRICULATION_ENDS: Record<number, string> = {
+  // UPD AY 2026-2027, from the official OUR calendar PDF.
+  120261: "2026-08-17",
+  120262: "2027-01-22",
+  120264: "2027-06-24",
+};
 
 // AYs with a machine-readable registrar calendar PDF come straight from
 // scripts/extract-academic-calendar-pdf.ts output.
