@@ -250,8 +250,9 @@ export const classesTable = pgTable(
       maxValue: 2147483647,
       cache: 1,
     }),
-    courseCode: varchar("course_code", { length: 16 }),
-    section: varchar({ length: 16 }),
+    // CRS UPD course codes run longer than AMIS ("CWTS 1 CFA CFA-DVC").
+    courseCode: varchar("course_code", { length: 32 }),
+    section: varchar({ length: 32 }),
     type: varchar({ length: 12 }),
     schedule: text().array(),
     roomId: integer("room_id"),

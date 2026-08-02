@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { campusCommunity, campusSite } from "../campus.config.ts";
 import {
   DISCORD_URL,
   MESSENGER_CONTRIBUTE_TARGET,
@@ -9,27 +10,30 @@ import {
   MESSENGER_URL,
 } from "./community-links.ts";
 
+// Everything here must derive from campus.config.ts so a fork only edits
+// that one file and these tests keep passing.
 describe("community-links", () => {
   test("volunteer Messenger defaults to contribute short link", () => {
     expect(MESSENGER_URL).toBe(MESSENGER_CONTRIBUTE_URL);
     expect(MESSENGER_CONTRIBUTE_URL).toBe(
-      "https://room-tba.uplb.tools/messenger/contribute",
+      `${campusSite.url}/messenger/contribute`,
     );
-    expect(MESSENGER_MAINTAIN_URL).toBe(
-      "https://room-tba.uplb.tools/messenger/maintain",
-    );
+    expect(MESSENGER_MAINTAIN_URL).toBe(`${campusSite.url}/messenger/maintain`);
     expect(MESSENGER_SHORT_CONTRIBUTE_URL).toBe(
-      "https://messenger.uplbtools.me/contribute",
+      campusCommunity.messengerShortContributeUrl,
     );
   });
 
-  test("Messenger targets are m.me group invites", () => {
-    expect(MESSENGER_CONTRIBUTE_TARGET).toMatch(/^https:\/\/m\.me\//);
-    expect(MESSENGER_MAINTAIN_TARGET).toMatch(/^https:\/\/m\.me\//);
-    expect(MESSENGER_CONTRIBUTE_TARGET).not.toBe(MESSENGER_MAINTAIN_TARGET);
+  test("Messenger targets come from campus config", () => {
+    expect(MESSENGER_CONTRIBUTE_TARGET).toBe(
+      campusCommunity.messengerContributeTarget,
+    );
+    expect(MESSENGER_MAINTAIN_TARGET).toBe(
+      campusCommunity.messengerMaintainTarget,
+    );
   });
 
-  test("Discord short link unchanged", () => {
-    expect(DISCORD_URL).toBe("https://discord.uplbtools.me");
+  test("Discord link comes from campus config", () => {
+    expect(DISCORD_URL).toBe(campusCommunity.discordUrl);
   });
 });

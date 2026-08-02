@@ -130,8 +130,8 @@ export default defineConfig({
       manifest: {
         name: "Room TBA",
         description:
-          "An open-source website built to help UPLB students find their rooms across the Los Baños campus",
-        theme_color: "#a30e00",
+          "An open-source website built to help UP Diliman students find their rooms across the Diliman campus",
+        theme_color: "#7b1113",
         icons: [
           {
             src: "pwa-192x192.png",

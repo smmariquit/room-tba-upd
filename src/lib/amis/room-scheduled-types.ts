@@ -1,45 +1,51 @@
-/** AMIS class types that normally meet in a campus room (import + room schedules). */
+/** CRS UPD class types that normally meet in a campus room (import + room schedules). */
 export const ROOM_SCHEDULED_CLASS_TYPES = new Set([
   "LEC",
   "LAB",
-  "RCT", // recitation — child of LEC, usually has its own facility_id
-  "CPT", // computime / computer lab sibling of LAB
+  "DISC", // discussion, the CRS sibling of AMIS recitation
+  "PE",
+  "STUDIO",
+  "SEMINAR",
+  "COLLOQUIUM",
+  "WORK",
+  "FIELD",
+  "CLASS", // fallback for meetings with no type token in CRS
 ]);
 
-/** AMIS types imported without a required room (thesis, SP, etc.). */
+/** CRS types imported without a required room (thesis, research, etc.). */
 export const NON_ROOM_CLASS_TYPES: Readonly<
   Record<string, { label: string; description: string }>
 > = {
-  THE: {
+  THESIS: {
     label: "Thesis",
-    description: "Thesis sections usually have no fixed room in AMIS.",
+    description: "Thesis sections usually have no fixed room in CRS.",
   },
-  SPR: {
-    label: "Special problem",
-    description: "Special-problem sections usually have no fixed room in AMIS.",
+  DISS: {
+    label: "Dissertation",
+    description: "Dissertation sections usually have no fixed room in CRS.",
   },
-  PRA: {
+  RES: {
+    label: "Research",
+    description: "Research sections usually have no fixed room in CRS.",
+  },
+  PRAC: {
     label: "Practicum",
     description:
       "Practicum sections may meet off-campus or without a room code.",
   },
-  DSR: {
-    label: "Dissertation",
-    description: "Dissertation sections usually have no fixed room in AMIS.",
-  },
-  IND: {
-    label: "Independent study",
-    description: "Independent study usually has no fixed room in AMIS.",
+  PROJ: {
+    label: "Project",
+    description: "Project sections usually have no fixed room in CRS.",
   },
 };
 
 /** Short copy for room schedule panels (per-room class lists). */
 export const ROOM_SCHEDULE_SCOPE_NOTE =
-  "Schedules list lecture, lab, recitation, and similar sections with assigned rooms. Thesis, special problem, dissertation, and similar sections usually are not tied to a room in AMIS, so they do not appear here.";
+  "Schedules list lecture, lab, discussion, and similar sections with assigned rooms. Thesis, research, dissertation, and similar sections usually are not tied to a room in CRS, so they do not appear here.";
 
 /** Short copy for class browse / course-prefix search. */
 export const CLASS_BROWSE_SCOPE_NOTE =
-  "Class search lists lecture, lab, recitation, thesis, special problem, dissertation, and similar sections. Sections without a room in AMIS show as unassigned; open a room only when a room code is listed.";
+  "Class search lists lecture, lab, discussion, thesis, research, dissertation, and similar sections. Sections without a room in CRS show as unassigned; open a room only when a room code is listed.";
 
 export const NO_ASSIGNED_ROOM_LABEL = "No assigned room";
 

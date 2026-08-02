@@ -8,26 +8,28 @@ import {
 } from "./room-scheduled-types";
 
 describe("room-scheduled-types", () => {
-  it("treats LEC, LAB, RCT, and CPT as room-scheduled", () => {
+  it("treats CRS meeting types as room-scheduled", () => {
     expect(isRoomScheduledClassType("LEC")).toBe(true);
     expect(isRoomScheduledClassType("lab")).toBe(true);
-    expect(isRoomScheduledClassType("RCT")).toBe(true);
-    expect(isRoomScheduledClassType("cpt")).toBe(true);
+    expect(isRoomScheduledClassType("DISC")).toBe(true);
+    expect(isRoomScheduledClassType("pe")).toBe(true);
+    expect(isRoomScheduledClassType("STUDIO")).toBe(true);
+    expect(isRoomScheduledClassType("CLASS")).toBe(true);
   });
 
   it("recognizes roomless import types", () => {
-    expect(isNonRoomClassType("THE")).toBe(true);
-    expect(isNonRoomClassType("SPR")).toBe(true);
-    expect(isNonRoomClassType("DSR")).toBe(true);
-    expect(isNonRoomClassType("PRA")).toBe(true);
-    expect(isNonRoomClassType("IND")).toBe(true);
+    expect(isNonRoomClassType("THESIS")).toBe(true);
+    expect(isNonRoomClassType("DISS")).toBe(true);
+    expect(isNonRoomClassType("RES")).toBe(true);
+    expect(isNonRoomClassType("PRAC")).toBe(true);
+    expect(isNonRoomClassType("PROJ")).toBe(true);
     expect(isNonRoomClassType("LEC")).toBe(false);
     expect(isNonRoomClassType("THS")).toBe(false);
   });
 
   it("maps roomless types to display labels", () => {
-    expect(classTypeDisplayLabel("THE")).toBe("Thesis");
-    expect(classTypeDisplayLabel("spr")).toBe("Special problem");
+    expect(classTypeDisplayLabel("THESIS")).toBe("Thesis");
+    expect(classTypeDisplayLabel("res")).toBe("Research");
     expect(classTypeDisplayLabel("LEC")).toBe("LEC");
   });
 

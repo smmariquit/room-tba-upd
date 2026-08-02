@@ -27,11 +27,11 @@ export const CAMPUS_BOUNDS = {
 
 export const CAMPUS_DEFAULT_CAMERA = campusMap.defaultCamera;
 
+// UP Diliman is flat; the terrain view keeps the campus box instead of a
+// mountain overlook. Constant names keep the upstream MAKILING_ prefix so
+// merges stay clean; renaming them is an upstream follow-up.
 export const MAKILING_TERRAIN_MAX_BOUNDS: [[number, number], [number, number]] =
-  [
-    [121.168, 14.095],
-    [121.34, 14.22],
-  ];
+  campusMap.maxBounds;
 
 export const MAKILING_TERRAIN_SOURCE_BOUNDS = [
   MAKILING_TERRAIN_MAX_BOUNDS[0][0],
@@ -41,10 +41,10 @@ export const MAKILING_TERRAIN_SOURCE_BOUNDS = [
 ] as [number, number, number, number];
 
 export const MAKILING_TERRAIN_CAMERA = {
-  center: [121.218, 14.142] as [number, number],
-  zoom: 13.25,
-  pitch: 68,
-  bearing: 190,
+  center: campusMap.defaultCamera.center,
+  zoom: 13.5,
+  pitch: 60,
+  bearing: 0,
 };
 
 export const TERRAIN_UNAVAILABLE_OFFLINE_MESSAGE =

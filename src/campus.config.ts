@@ -1,19 +1,21 @@
 /**
  * Single source of truth for campus-specific config.
  *
- * A fork changes this file (and the data — see /wiki/fork-for-your-campus).
- * Run `bun run fork:check` after editing to catch stray UPLB strings elsewhere.
+ * This fork targets UP Diliman. Data comes from the public CRS schedule
+ * browser (crs.upd.edu.ph/schedule) and OpenStreetMap.
+ * Run `bun run fork:check` after editing to catch stray UPLB strings.
  *
  * Values are plain literals so astro.config.mjs can import this module at
  * config-eval time (no process.env reads at module top level).
  */
 
 export const campusSite = {
-  url: "https://room-tba.uplb.tools",
+  // Placeholder until a real domain is picked.
+  url: "https://room-tba-upd.vercel.app",
   name: "Room TBA",
-  title: "Room TBA | Find Rooms, Buildings, Colleges, and Divisions at UPLB",
+  title: "Room TBA | Find Rooms, Buildings, and Colleges at UP Diliman",
   description:
-    "Room TBA helps UPLB students find rooms, buildings, colleges, and divisions across the Los Banos campus.",
+    "Room TBA helps UP Diliman students find rooms, buildings, and colleges across the Diliman campus.",
 } as const;
 
 export const campusMap: {
@@ -25,30 +27,34 @@ export const campusMap: {
     bearing: number;
   };
 } = {
-  /** [lng, lat] — west/south corner, then east/north corner. */
+  /** [lng, lat]: west/south corner, then east/north corner. */
   maxBounds: [
-    // West/south: Mt. Makiling foothills, BSP Jamboree site, National Arts Center corridor.
-    [121.168, 14.095],
-    [121.335, 14.215],
+    // Campus footprint from OSM (121.045-121.076, 14.637-14.663) plus margin
+    // for Katipunan, Philcoa, and the Commonwealth edge.
+    [121.025, 14.617],
+    [121.096, 14.683],
   ],
   /** Default camera: center [lng, lat], zoom, pitch (0 = top-down, 60 = tilted 3D), bearing. */
   defaultCamera: {
-    center: [121.24125948460573, 14.16323736946326],
-    zoom: 15.81,
+    // Academic Oval, between Quezon Hall and the Sunken Garden.
+    center: [121.0672, 14.6544],
+    zoom: 15.2,
     pitch: 60,
-    bearing: -154.48,
+    bearing: 0,
   },
 };
 
 export const campusCommunity = {
-  orgUrl: "https://uplb.tools",
-  githubUrl: "https://github.com/uplbtools/room-tba",
-  discordUrl: "https://discord.uplbtools.me",
-  osaOrganizationsUrl: "https://uplbosa.org/orgs",
+  // ponytail: all community links point at the repo until a UPD community
+  // exists; replace with real Discord/Messenger links when they do.
+  orgUrl: "https://github.com/smmariquit/room-tba-upd",
+  githubUrl: "https://github.com/smmariquit/room-tba-upd",
+  discordUrl: "https://github.com/smmariquit/room-tba-upd",
+  osaOrganizationsUrl: "https://upd.edu.ph/organizations/",
   /** Messenger group chat invites (targets for redirect workers). */
-  messengerContributeTarget: "https://m.me/j/Aba1V0prvQyLrafZ/",
-  messengerMaintainTarget: "https://m.me/j/AbZtqMU8UUTiwQfn/",
+  messengerContributeTarget: "https://github.com/smmariquit/room-tba-upd",
+  messengerMaintainTarget: "https://github.com/smmariquit/room-tba-upd",
   /** Short links on a community subdomain (Cloudflare Worker). Delete if unused. */
-  messengerShortContributeUrl: "https://messenger.uplbtools.me/contribute",
-  messengerShortMaintainUrl: "https://messenger.uplbtools.me/maintain",
+  messengerShortContributeUrl: "https://github.com/smmariquit/room-tba-upd",
+  messengerShortMaintainUrl: "https://github.com/smmariquit/room-tba-upd",
 } as const;

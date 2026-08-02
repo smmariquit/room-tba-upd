@@ -41,8 +41,8 @@ ALTER TABLE "colleges" ADD COLUMN IF NOT EXISTS "updated_at" text DEFAULT CURREN
 ALTER TABLE "colleges" ADD COLUMN IF NOT EXISTS "rooms_fetched" boolean DEFAULT false NOT NULL;
 CREATE TABLE IF NOT EXISTS "classes" (
   "id" integer PRIMARY KEY,
-  "course_code" varchar(16),
-  "section" varchar(16),
+  "course_code" varchar(32),
+  "section" varchar(32),
   "type" varchar(12),
   "schedule" text[],
   "room_id" integer,
@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS "classes" (
   "updated_at" text DEFAULT CURRENT_TIMESTAMP NOT NULL,
   "directions" text
 );
-ALTER TABLE "classes" ADD COLUMN IF NOT EXISTS "course_code" varchar(16);
-ALTER TABLE "classes" ADD COLUMN IF NOT EXISTS "section" varchar(16);
+ALTER TABLE "classes" ADD COLUMN IF NOT EXISTS "course_code" varchar(32);
+ALTER TABLE "classes" ADD COLUMN IF NOT EXISTS "section" varchar(32);
 ALTER TABLE "classes" ADD COLUMN IF NOT EXISTS "type" varchar(12);
 ALTER TABLE "classes" ADD COLUMN IF NOT EXISTS "schedule" text[];
 ALTER TABLE "classes" ADD COLUMN IF NOT EXISTS "room_id" integer;

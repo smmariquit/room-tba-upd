@@ -50,3 +50,5 @@ data/final-exams-*.json
 !data/final-exams-sample.json
 .vercel
 .env*.local
+data/crs-classes-*.json
+data/upd-buildings-osm.json

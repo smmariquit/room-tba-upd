@@ -181,14 +181,14 @@ describe("resolveImportRows", () => {
     expect(stats.missingFacility).toBe(0);
   });
 
-  test("imports RCT (recitation) as a room-scheduled type", () => {
+  test("imports DISC (discussion) as a room-scheduled type", () => {
     const lookup = buildRoomLookup([{ id: 7, code: "ASI B-126" }], []);
     const { stats, rows } = resolveImportRows(
       [
         {
           courseCode: "AGRI 61",
           section: "AB1R",
-          type: "RCT",
+          type: "DISC",
           courseTitle: "Fundamentals of Agricultural Extension Communication",
           schedule: ["W 09:00AM-10:00AM"],
           facilityCode: "ASI B-126",
@@ -199,7 +199,7 @@ describe("resolveImportRows", () => {
     );
 
     expect(rows).toHaveLength(1);
-    expect(rows[0]?.type).toBe("RCT");
+    expect(rows[0]?.type).toBe("DISC");
     expect(rows[0]?.roomId).toBe(7);
     expect(stats.directRoomMatch).toBe(1);
     expect(stats.skippedUnknownType).toBe(0);
@@ -212,7 +212,7 @@ describe("resolveImportRows", () => {
         {
           courseCode: "CMSC 199",
           section: "A",
-          type: "THE",
+          type: "THESIS",
           courseTitle: "Undergraduate Thesis",
           schedule: [],
           facilityCode: "",
@@ -221,7 +221,7 @@ describe("resolveImportRows", () => {
         {
           courseCode: "CMSC 190",
           section: "B",
-          type: "SPR",
+          type: "RES",
           courseTitle: "Special Problem",
           schedule: ["TBA"],
           facilityCode: "",
