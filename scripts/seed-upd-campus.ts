@@ -480,7 +480,7 @@ async function main() {
     // Toki clockwise (relaunched Feb 2024). Stops are the named OSM bus_stop
     // nodes inside campus, ordered by bearing around the campus center.
     // ponytail: bearing sort approximates loop order; hand-fix via editor if
-    // a stop lands out of sequence. Fares are LTFRB-indicative, not verified.
+    // a stop lands out of sequence. Fares confirmed by the maintainer, 2026-08.
     const stopsExport = JSON.parse(
       readFileSync("data/upd-stops-osm.json", "utf8"),
     ) as OverpassExport;
@@ -544,8 +544,8 @@ async function main() {
         description: route.description,
         directionNote: route.directionNote,
         color: route.color,
-        fareRegular: 14,
-        fareDiscounted: 12,
+        fareRegular: 13,
+        fareDiscounted: 11,
       });
       await db.insert(jeepneyStopsTable).values(
         route.stops.map((stop, index) => ({
