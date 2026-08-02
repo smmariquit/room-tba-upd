@@ -69,6 +69,13 @@ const PREFIX_TO_BUILDING: Record<string, string> = {
   SOLAIR: "Bonifacio Hall",
   CDC: "UP Child Development Center", // Child Development Center, CHE
   CHK: "UP Gymnasium (CHK Building)", // Ylanan Hall
+  // Pass-2 research 2026-08-02, each verified against live CRS venues:
+  AH: "Abelardo Hall", // College of Music (AH GAMELAN, AH MINIHALL, AH 2xx)
+  SE: "UP School of Economics", // Encarnacion Hall, Guerrero cor. Osmena
+  BA: "Cesar E.A. Virata School of Business", // BA 104-311
+  // Known ambiguity: Music sections also use "ANX" for the Music Annex, but
+  // most ANX venues are Palma Hall Annex rooms; ANX stays on Silangang Palma
+  // until rooms are split per enlisting unit.
   // AIT = Asian Institute of Tourism, Commonwealth Ave; no OSM footprint in
   // the campus export yet, so AIT rooms stay unlinked until one is added.
   SURP: "School of Urban and Regional Planning (SURP)",
@@ -283,6 +290,10 @@ async function main() {
       "GT-Toyota Asian Center": "Asian Center",
       "UP Gymnasium (CHK Building)": "College of Human Kinetics",
       "UP New CHK Gymnasium": "College of Human Kinetics",
+      "Abelardo Hall": "College of Music",
+      "UP School of Economics": "School of Economics",
+      "Cesar E.A. Virata School of Business":
+        "Cesar E.A. Virata School of Business",
     };
     let roomsLinkedToCollege = 0;
     for (const [buildingName, collegeName] of Object.entries(
@@ -387,6 +398,20 @@ async function main() {
       await db.insert(placesTable).values(placeInserts.slice(i, i + 500));
     }
     console.log(`Places: +${placeInserts.length} from OSM amenities`);
+
+    // 6b. Curated notes on OSM places (pass-2 research, 2026-08-02).
+    const PLACE_NOTES: Record<string, string> = {
+      "Mang Larry's":
+        "Closed February 2026: the E. Jacinto St stall was vacated on a court-ordered eviction. The isawan reopened off-campus at 28 Road 20, Project 8, QC; Magiting St branch still open.",
+      "Church of the Holy Sacrifice":
+        "Officially the Parish of the Holy Sacrifice (Diocese of Cubao); the round chapel is a National Historical Landmark.",
+    };
+    for (const [name, description] of Object.entries(PLACE_NOTES)) {
+      await db
+        .update(placesTable)
+        .set({ description })
+        .where(eq(placesTable.name, name));
+    }
 
     // 7. Verified recurring events (dates from the OUR AY 2026-2027 calendar;
     // times are typical windows, not official).
@@ -529,7 +554,7 @@ async function main() {
         id: "toki",
         name: "Toki",
         description:
-          "Reverse of the Ikot loop (toki is ikot spelled backwards). Suspended during the pandemic, relaunched February 2024.",
+          "Reverse of the Ikot loop (toki is ikot spelled backwards). Service has been intermittent: suspended during the pandemic, relaunched February 2024, reintroduced as a trial run October 2025 (UPD Memo JFA-25-27).",
         directionNote: "Clockwise around campus",
         color: "#0e7490",
         stops: [...ccwStops].reverse(),
