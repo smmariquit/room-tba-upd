@@ -25,6 +25,7 @@ import {
   eventsTable,
   jeepneyRoutesTable,
   jeepneyStopsTable,
+  organizationsTable,
   placesTable,
   roomsTable,
   updateTable,
@@ -101,6 +102,8 @@ const PREFIX_TO_BUILDING: Record<string, string> = {
   RM: "Plaridel Hall", // "Rm ###" venues, Journalism
   CONFERENCE: "Palma Hall", // PolSci/Philo "Conference Room"
   SEMINAR: "Palma Hall", // Philo "Seminar Room"
+  // Pass-3 verified 2026-08-02:
+  TMC: "Advanced Science and Technology Institute", // TMC operates from DOST-ASTI
 };
 
 /** Resolve a CRS venue string to a building id via its prefix. */
@@ -110,6 +113,14 @@ function resolveVenueBuildingId(
 ): number | null {
   // "Pav 2 ..." and "PAV2 ..." both mean Palma Hall Pavilion 2.
   const pav = venue.match(/^PAV\s*(\d)/i);
+  // "A101"-"A403" (no space) are Section A of the DChE Building
+  // (dche.coe.upd.edu.ph; Collegian 2025-06-01 describes sections A-D).
+  if (!pav && /^A\d{3}/.test(venue)) {
+    return (
+      buildingIdByName.get("Department of Chemical Engineering Building") ??
+      null
+    );
+  }
   const prefix = pav ? `PAV${pav[1]}` : venue.split(/[\s-]/)[0].toUpperCase();
   const buildingName = PREFIX_TO_BUILDING[prefix];
   if (!buildingName) return null;
@@ -545,6 +556,106 @@ async function main() {
       eventsInserted += 1;
     }
     console.log(`Events: +${eventsInserted}`);
+
+    // 7b. Units and offices as organization pins (pass-3 research,
+    // 2026-08-02; each placement cited from the unit's own page).
+    const OFFICES: Array<{
+      name: string;
+      category: string;
+      building: string;
+      description: string;
+      websiteLink: string | null;
+    }> = [
+      {
+        name: "Office of the University Registrar",
+        category: "office",
+        building: "Office of the University Registrar",
+        description:
+          "Standalone OUR Building, T.M. Kalaw St. corner Quirino Ave. Student ID Room on the 2nd floor, CRS helpdesk (AIS Section) on the 3rd.",
+        websiteLink: "https://our.upd.edu.ph",
+      },
+      {
+        name: "UP ID Room",
+        category: "service",
+        building: "Office of the University Registrar",
+        description: "2nd floor, OUR Building. Student RFID ID processing.",
+        websiteLink: "https://our.upd.edu.ph",
+      },
+      {
+        name: "CRS Helpdesk (AIS Section)",
+        category: "service",
+        building: "Office of the University Registrar",
+        description:
+          "3rd floor, OUR Building. Computerized Registration System support, support@crs.upd.edu.ph.",
+        websiteLink: "https://crs.upd.edu.ph",
+      },
+      {
+        name: "Interactive Learning Center Diliman",
+        category: "unit",
+        building: "Diliman Interactive Learning Center",
+        description:
+          "Formerly DILC. Room 201, DILC Building, Apacible St. corner Magsaysay Ave.",
+        websiteLink: "https://ilc.upd.edu.ph",
+      },
+      {
+        name: "Office of Scholarships and Grants",
+        category: "office",
+        building: "Vinzons Hall",
+        description:
+          "Room 301, 3rd floor, Vinzons Hall. Renamed from the Office of Scholarships and Student Services in 2018.",
+        websiteLink: "https://ovcsa.upd.edu.ph/student-services/osg/",
+      },
+      {
+        name: "University Food Service",
+        category: "service",
+        building: "Student Union Building",
+        description:
+          "Cafeteria on the 2nd floor of the Student Union Building, admin on the 3rd; bakeshop at Kalayaan Residence Hall.",
+        websiteLink: "https://ovcsa.upd.edu.ph/student-services/ufs/",
+      },
+      {
+        name: "UP Health Service",
+        category: "service",
+        building: "UP Health Service",
+        description: "University infirmary and student health services.",
+        websiteLink: null,
+      },
+      {
+        name: "UP Diliman Police",
+        category: "service",
+        building: "University Police And Fire Department",
+        description: "Campus police and fire department.",
+        websiteLink: null,
+      },
+      {
+        name: "Technology Management Center",
+        category: "academic",
+        building: "Advanced Science and Technology Institute",
+        description:
+          "TMC classes and offices operate from the DOST-ASTI Complex on C.P. Garcia Ave. while its own building is under way.",
+        websiteLink: "https://tmc.upd.edu.ph",
+      },
+    ];
+    const existingOrgs = new Set(
+      (
+        await db
+          .select({ name: organizationsTable.name })
+          .from(organizationsTable)
+      ).map((o) => o.name),
+    );
+    const orgInserts = OFFICES.filter((o) => !existingOrgs.has(o.name)).map(
+      (o) => ({
+        name: o.name,
+        category: o.category,
+        buildingId: buildingIdByName.get(o.building) ?? null,
+        description: o.description,
+        websiteLink: o.websiteLink,
+      }),
+    );
+    if (orgInserts.length > 0) {
+      await db.insert(organizationsTable).values(orgInserts);
+    }
+    console.log(`Offices/units: +${orgInserts.length}`);
 
     // 8. Ikot and Toki from OSM bus stops. Direction verified against the
     // official UPD page (pages.upd.edu.ph/ikotokipara): Ikot counterclockwise,
