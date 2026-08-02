@@ -14,6 +14,8 @@ export type CrsRawClass = {
   /** Topic/title lines under the class name (mostly topics courses). */
   courseTitle: string;
   credits: string;
+  /** CRS enlisting unit code, e.g. "MATH", "DCS" (department-level). */
+  enlistingUnit: string;
   /**
    * Schedule cell lines that describe meetings
    * (e.g. "TWThF 7:15-8:15AM lec TBA"). Instructor and note lines removed.
@@ -75,6 +77,7 @@ export function parseCrsSchedulePage(html: string): CrsRawClass[] {
       className,
       courseTitle: classLines.slice(1).join("; "),
       credits: stripTags(cells[2]),
+      enlistingUnit: stripTags(cells[5]?.split(/<br\s*\/?>/)[0] ?? ""),
       scheduleLines,
     });
   }

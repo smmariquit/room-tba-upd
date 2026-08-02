@@ -63,7 +63,12 @@ describe("splitClassName", () => {
 });
 
 describe("normalizeCrsClass", () => {
-  const base = { classCode: "39163", credits: "4.0", courseTitle: "" };
+  const base = {
+    classCode: "39163",
+    credits: "4.0",
+    courseTitle: "",
+    enlistingUnit: "",
+  };
 
   test("groups meetings by type into separate class rows", () => {
     const rows = normalizeCrsClass(
