@@ -2,15 +2,37 @@
   import { onMount } from "svelte";
 
   let online = $state(0);
-  
+
+  const HEARTBEAT_MS = 30_000;
+
+  function sessionId() {
+    const key = "rt-presence-sid";
+    let sid = sessionStorage.getItem(key);
+    if (!sid) {
+      sid = crypto.randomUUID();
+      sessionStorage.setItem(key, sid);
+    }
+    return sid;
+  }
+
+  async function heartbeat() {
+    try {
+      const response = await fetch("/api/presence", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sid: sessionId() }),
+      });
+      if (!response.ok) return;
+      const data = (await response.json()) as { online?: number };
+      if (typeof data.online === "number") online = data.online;
+    } catch {
+      // Offline or API down: keep the last known count (0 renders as "--").
+    }
+  }
+
   onMount(() => {
-    online = Math.floor(Math.random() * (150 - 20) + 20);
-    
-    const interval = setInterval(() => {
-      const change = Math.floor(Math.random() * 5) - 2;
-      online = Math.max(1, online + change);
-    }, 5000);
-    
+    heartbeat();
+    const interval = setInterval(heartbeat, HEARTBEAT_MS);
     return () => clearInterval(interval);
   });
 </script>

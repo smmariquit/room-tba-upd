@@ -17,10 +17,11 @@ import { config } from "dotenv";
 import { readFileSync, readdirSync } from "node:fs";
 import pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, isNull, sql } from "drizzle-orm";
 import {
   buildingsTable,
   collegesTable,
+  dormsTable,
   eventLocationsTable,
   eventsTable,
   jeepneyRoutesTable,
@@ -148,11 +149,23 @@ async function main() {
     const osm = JSON.parse(
       readFileSync("data/upd-buildings-osm.json", "utf8"),
     ) as OverpassExport;
+    // Residence halls become dorm pins (section 1b), not building pins;
+    // UP Bliss housing blocks are map noise and are skipped entirely.
+    const DORMISH = /Residence Hall|Dormitor/i;
+    const SKIP_BUILDING = /Bliss/i;
     const byName = new Map<string, { lat: number; lon: number }>();
+    const dormByName = new Map<string, { lat: number; lon: number }>();
     for (const el of osm.elements) {
       const name = el.tags?.name?.trim();
-      if (!name || !el.center || byName.has(name)) continue;
-      byName.set(name, el.center);
+      if (!name || !el.center) continue;
+      if (SKIP_BUILDING.test(name)) continue;
+      if (DORMISH.test(name)) {
+        // "Acacia Residence Hall Building 2" collapses into one Acacia pin.
+        const base = name.split(/ Admin Building| Building \d/)[0].trim();
+        if (!dormByName.has(base)) dormByName.set(base, el.center);
+        continue;
+      }
+      if (!byName.has(name)) byName.set(name, el.center);
     }
 
     const existing = new Set(
@@ -176,6 +189,34 @@ async function main() {
     console.log(
       `Buildings: +${buildingInserts.length} (${existing.size} already present)`,
     );
+
+    // 1b. Dorms from the residence-hall footprints, plus cleanup of dorm and
+    // Bliss rows that earlier seed versions inserted as buildings.
+    await db.execute(sql`
+      DELETE FROM buildings b
+      WHERE (b.building_name ~* 'Residence Hall|Dormitor|Bliss')
+        AND NOT EXISTS (SELECT 1 FROM rooms r WHERE r.building_id = b.id)
+        AND NOT EXISTS (SELECT 1 FROM organizations o WHERE o.building_id = b.id)
+        AND NOT EXISTS (SELECT 1 FROM event_locations el WHERE el.building_id = b.id)
+    `);
+    const existingDorms = new Set(
+      (await db.select({ name: dormsTable.dormName }).from(dormsTable)).map(
+        (d) => d.name,
+      ),
+    );
+    const dormInserts = [...dormByName.entries()]
+      .filter(([name]) => !existingDorms.has(name))
+      .map(([name, center]) => ({
+        dormName: name,
+        lat: center.lat,
+        lon: center.lon,
+        gender: "unspecified",
+        isUpManaged: true,
+      }));
+    if (dormInserts.length > 0) {
+      await db.insert(dormsTable).values(dormInserts);
+    }
+    console.log(`Dorms: +${dormInserts.length}`);
 
     const buildingIdByName = new Map(
       (

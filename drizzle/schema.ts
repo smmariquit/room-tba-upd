@@ -729,6 +729,15 @@ export const aliasesTable = pgTable(
 
 // First-party sponsor impression/click log (docs/ad-policy.md). Server-only —
 // not in the PGlite SYNCED_TABLES set. Written by /api/sponsor-event.
+// Anonymous presence heartbeats behind the "N online" counter. Rows are
+// pruned opportunistically; a session id is a random client-generated UUID.
+export const presenceTable = pgTable("presence", {
+  sid: varchar({ length: 64 }).primaryKey(),
+  lastSeenAt: timestamp("last_seen_at", { withTimezone: true, mode: "string" })
+    .defaultNow()
+    .notNull(),
+});
+
 export const sponsorImpressionsTable = pgTable("sponsor_impressions", {
   id: bigserial({ mode: "number" }).primaryKey(),
   sponsorId: text("sponsor_id").notNull(),
