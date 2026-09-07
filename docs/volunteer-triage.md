@@ -35,8 +35,8 @@ Every Monday at 09:00 UTC (or async if no one is online).
 
 | Role | Discord | Messenger |
 | --- | --- | --- |
-| Volunteers (data, QA, contribute) | [discord.uplbtools.me](https://discord.uplbtools.me) | [messenger.uplbtools.me/contribute](https://messenger.uplbtools.me/contribute) |
-| Maintainers (triage, shipping) | `#development` | [messenger.uplbtools.me/maintain](https://messenger.uplbtools.me/maintain) |
+| Volunteers (data, QA, contribute) | [discord.uplbtools.me](https://room-tba.uplb.tools/discord) | [messenger.uplbtools.me/contribute](https://room-tba.uplb.tools/messenger/contribute) |
+| Maintainers (triage, shipping) | `#development` | [messenger.uplbtools.me/maintain](https://room-tba.uplb.tools/messenger/maintain) |
 
 ## Runbook
 

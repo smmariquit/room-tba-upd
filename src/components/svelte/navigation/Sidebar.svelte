@@ -417,7 +417,7 @@
           transition:slide={{ axis: "y", duration: 300 }}
         >
           <NavLink
-            href="https://discord.uplbtools.me"
+            href="https://room-tba.uplb.tools/discord"
             aria-label="Join Discord"
             expanded={labeled}
             tooltip="Join Discord"
@@ -436,7 +436,7 @@
             </svg>
           </NavLink>
           <NavLink
-            href="https://messenger.uplbtools.me"
+            href="https://room-tba.uplb.tools/messenger"
             aria-label="Join our Contributors GC"
             expanded={labeled}
             tooltip="Join our Contributors GC"

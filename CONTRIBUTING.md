@@ -13,7 +13,7 @@ Thanks for helping UPLB students find rooms. You do **not** need to clone this r
 | [Good first issues](https://github.com/uplbtools/room-tba/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | New devs | Smaller coding tasks | Yes |
 | [Maintainers / AI agents](#maintainers-and-agents) | Core team, Cursor | See [AGENTS.md](AGENTS.md) | Yes |
 
-**Community:** [Discord](https://discord.uplbtools.me) · [Messenger (contribute)](https://messenger.uplbtools.me/contribute) · [UPLB Tools](https://uplb.tools)
+**Community:** [Discord](https://room-tba.uplb.tools/discord) · [Messenger (contribute)](https://room-tba.uplb.tools/messenger/contribute) · [UPLB Tools](https://uplb.tools)
 
 ---
 
@@ -23,7 +23,7 @@ Use this when a schedule, pin, direction, or building name is wrong.
 
 1. **In the app:** open the room or building → **Suggest an edit** (if you have contributor access).
 2. **On GitHub:** [New data correction issue](https://github.com/uplbtools/room-tba/issues/new?template=data_correction.yml).
-3. **Chat:** [Discord](https://discord.uplbtools.me) or [Messenger](https://messenger.uplbtools.me/contribute) if GitHub is awkward.
+3. **Chat:** [Discord](https://room-tba.uplb.tools/discord) or [Messenger](https://room-tba.uplb.tools/messenger/contribute) if GitHub is awkward.
 
 Include:
 
@@ -142,7 +142,7 @@ Includes: branch rules, issue hygiene for detailed specs, Cursor workflow skill,
 
 **One-time agent setup (maintainers):** `bun run install:agent-tooling` then `bun run install:agent-plugins` — see [agent tooling](docs/agent-tooling.md).
 
-**Maintainer chat:** [Discord](https://discord.uplbtools.me) · [Messenger (maintain)](https://messenger.uplbtools.me/maintain)
+**Maintainer chat:** [Discord](https://room-tba.uplb.tools/discord) · [Messenger (maintain)](https://room-tba.uplb.tools/messenger/maintain)
 
 ---
 

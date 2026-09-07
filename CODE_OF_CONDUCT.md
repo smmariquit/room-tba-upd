@@ -60,7 +60,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-[Discord](https://discord.uplbtools.me) or by opening a private security
+[Discord](https://room-tba.uplb.tools/discord) or by opening a private security
 contact issue for maintainers.
 
 All complaints will be reviewed and investigated promptly and fairly.
